@@ -1,0 +1,172 @@
+WITH s_ad AS (
+WITH s_asset AS (
+SELECT ss_id, media_id, account_id, campaign_id, adgroup_id, ad_id, asset_id, ad_name, ad_type, status, approval_status, serving_status,disapproval_reason,view_url,final_url,final_mb_url,tracking_url,path_1,path_2,cpc_max,business_name,labels,
+SUBSTR(REGEXP_SUBSTR(asset_id,'[^{]+[":$]',1),INSTR(REGEXP_SUBSTR(asset_id,'[^{]+[":$]',1),"[")+1,INSTR(REGEXP_SUBSTR(asset_id,'[^{]+[":$]',1),"]")-INSTR(REGEXP_SUBSTR(asset_id,'[^{]+[":$]',1),"[")-1)
+AS title_id,
+
+SUBSTR(REPLACE(asset_id, REGEXP_SUBSTR(asset_id,'[^{]+[":$]',1), ""),3,LENGTH( REPLACE(asset_id, REGEXP_SUBSTR(asset_id,'[^{]+[":$]',1), "") )-4)
+AS description_id,
+
+FROM `cyberagent-367.searchsuite_unext.s_ad_latest` WHERE asset_id iS NOT NULL)
+
+SELECT ss_id, media_id, account_id, campaign_id, adgroup_id, ad_id, asset_id, ad_name, ad_type, status, approval_status, serving_status,disapproval_reason,view_url,final_url,final_mb_url,tracking_url,path_1,path_2,cpc_max,business_name,labels,
+REGEXP_SUBSTR(title_id,'[^,]+',1,1) AS title_id_1,
+REGEXP_SUBSTR(title_id,'[^,]+',1,2) AS title_id_2,
+REGEXP_SUBSTR(title_id,'[^,]+',1,3) AS title_id_3,
+REGEXP_SUBSTR(title_id,'[^,]+',1,4) AS title_id_4,
+REGEXP_SUBSTR(title_id,'[^,]+',1,5) AS title_id_5,
+REGEXP_SUBSTR(title_id,'[^,]+',1,6) AS title_id_6,
+REGEXP_SUBSTR(title_id,'[^,]+',1,7) AS title_id_7,
+REGEXP_SUBSTR(title_id,'[^,]+',1,8) AS title_id_8,
+REGEXP_SUBSTR(title_id,'[^,]+',1,9) AS title_id_9,
+REGEXP_SUBSTR(title_id,'[^,]+',1,10) AS title_id_10,
+REGEXP_SUBSTR(title_id,'[^,]+',1,11) AS title_id_11,
+REGEXP_SUBSTR(title_id,'[^,]+',1,12) AS title_id_12,
+REGEXP_SUBSTR(title_id,'[^,]+',1,13) AS title_id_13,
+REGEXP_SUBSTR(title_id,'[^,]+',1,14) AS title_id_14,
+REGEXP_SUBSTR(title_id,'[^,]+',1,15) AS title_id_15,
+
+REGEXP_SUBSTR(description_id,'[^,]+',1,1) AS description_id_1,
+REGEXP_SUBSTR(description_id,'[^,]+',1,2) AS description_id_2,
+REGEXP_SUBSTR(description_id,'[^,]+',1,3) AS description_id_3,
+REGEXP_SUBSTR(description_id,'[^,]+',1,4) AS description_id_4
+
+FROM s_asset )
+
+SELECT 
+  ss_id, media_id, account_id, campaign_id, adgroup_id, ad_id, ad_name, ad_type, status, serving_status, approval_status,disapproval_reason,view_url,final_url,final_mb_url,tracking_url,path_1,path_2,cpc_max,business_name,labels,
+  title_1,
+  title_2,
+  title_3,
+  title_4,
+  title_5,
+  title_6,
+  title_7,
+  title_8,
+  title_9,
+  title_10,
+  title_11,
+  title_12,
+  title_13,
+  title_14,
+  title_15,
+  description_1,
+  description_2,
+  description_3,
+  description_4
+
+FROM(
+SELECT * FROM s_ad
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_1
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_1
+ON s_ad.account_id = s_text_1.acc_id AND s_ad.title_id_1 = s_text_1.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_2
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_2
+ON s_ad.account_id = s_text_2.acc_id AND s_ad.title_id_2 = s_text_2.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_3
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_3
+ON s_ad.account_id = s_text_3.acc_id AND s_ad.title_id_3 = s_text_3.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_4
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_4
+ON s_ad.account_id = s_text_4.acc_id AND s_ad.title_id_4 = s_text_4.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_5
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_5
+ON s_ad.account_id = s_text_5.acc_id AND s_ad.title_id_5 = s_text_5.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_6
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_6
+ON s_ad.account_id = s_text_6.acc_id AND s_ad.title_id_6 = s_text_6.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_7
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_7
+ON s_ad.account_id = s_text_7.acc_id AND s_ad.title_id_7 = s_text_7.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_8
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_8
+ON s_ad.account_id = s_text_8.acc_id AND s_ad.title_id_8 = s_text_8.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_9
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_9
+ON s_ad.account_id = s_text_9.acc_id AND s_ad.title_id_9 = s_text_9.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_10
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_10
+ON s_ad.account_id = s_text_10.acc_id AND s_ad.title_id_10 = s_text_10.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_11
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_11
+ON s_ad.account_id = s_text_11.acc_id AND s_ad.title_id_11 = s_text_11.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_12
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_12
+ON s_ad.account_id = s_text_12.acc_id AND s_ad.title_id_12 = s_text_12.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_13
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_13
+ON s_ad.account_id = s_text_13.acc_id AND s_ad.title_id_13 = s_text_13.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_14
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_14
+ON s_ad.account_id = s_text_14.acc_id AND s_ad.title_id_14 = s_text_14.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS title_15
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_text_15
+ON s_ad.account_id = s_text_15.acc_id AND s_ad.title_id_15 = s_text_15.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS description_1
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_script_1
+ON s_ad.account_id = s_script_1.acc_id AND s_ad.description_id_1 = s_script_1.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS description_2
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_script_2
+ON s_ad.account_id = s_script_2.acc_id AND s_ad.description_id_2 = s_script_2.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS description_3
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_script_3
+ON s_ad.account_id = s_script_3.acc_id AND s_ad.description_id_3 = s_script_3.set_id
+
+LEFT JOIN (
+  SELECT account_id AS acc_id, asset_id AS set_id, asset_text AS description_4
+  FROM `cyberagent-367.searchsuite_unext.s_asset`
+  ) AS s_script_4
+ON s_ad.account_id = s_script_4.acc_id AND s_ad.description_id_4 = s_script_4.set_id
