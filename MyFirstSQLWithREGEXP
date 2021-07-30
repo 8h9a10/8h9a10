@@ -1,3 +1,9 @@
+/*
+There were serveral ids in the [asset_id] columns, described as ["header"{id1,id2,...},"description"{id1,id2,...}]. 
+Each id is associated with text value in [asset_text] column in other table. I used REGEX to extract each id into serveral columns, and joined with the other table to get the text 
+so I can have a completed data table with 15 titles and 4 descriptions as requested.
+*/
+
 WITH s_ad AS (
 WITH s_asset AS (
 SELECT ss_id, media_id, account_id, campaign_id, adgroup_id, ad_id, asset_id, ad_name, ad_type, status, approval_status, serving_status,disapproval_reason,view_url,final_url,final_mb_url,tracking_url,path_1,path_2,cpc_max,business_name,labels,
