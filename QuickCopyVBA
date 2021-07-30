@@ -1,0 +1,68 @@
+================================================================================================
+Sub Filter()
+'対象集計
+    Application.ScreenUpdating = False
+    Sheets("実行").Range("A:B").ClearContents
+    Sheets("Report").Activate
+    
+    Range("A1").Select
+    Selection.ListObject.QueryTable.Refresh BackgroundQuery:=False
+    
+    
+    Range("Report[[#Headers],[Report Filter]]").Select
+    ActiveSheet.ListObjects("Report").Range.AutoFilter Field:=7, Criteria1:="1"
+    Range("Report[[#Headers],[Name]]").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Sheets("実行").Activate
+    Range("B1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    
+    Sheets("Report").Activate
+    Range("Report[[#Headers],[Folder Path]]").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("実行").Activate
+    Range("A1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Sheets("Report").AutoFilter.ShowAllData
+End Sub
+=================================================================================================
+Sub CopyFile()
+    Dim FSO As Object
+    Dim sFile As String
+    Dim sFolder As String
+    Dim sFilePath As String
+    Dim sDFolder As String
+    
+    Application.ScreenUpdating = False
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    
+    sDFolder = Application.ActiveWorkbook.Path + "\Destination"
+    'MsgBox (sDFolder)
+    
+    Sheets("実行").Activate
+    
+    Lr = Cells(Rows.Count, 1).End(xlUp).Row
+    For i = 2 To Lr
+        sFile = Cells(i, 2).Value
+        sFolder = Cells(i, 1).Value
+        sFilePath = sFolder & sFile
+        
+        sDFolder = Application.ActiveWorkbook.Path + "\Destination\" + sFile
+       'Checking If File Is Located in the Source Folder
+            If Not FSO.FileExists(sFilePath) Then
+                MsgBox "File Not Found", vbInformation, "Not Found"
+    
+        'Copying If the Same File is Not Located in the Destination Folder
+            ElseIf Not FSO.FileExists(sDFolder & "\" & sFile) Then
+                FSO.CopyFile (sFilePath), sDFolder, True
+                Else
+                MsgBox "File Already Exists In The Destination Folder", vbExclamation, "File Already Exists"
+            End If
+    Next
+    MsgBox "Copy Completed"
+End Sub
