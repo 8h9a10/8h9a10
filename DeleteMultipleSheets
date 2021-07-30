@@ -1,0 +1,35 @@
+function PrintSheetName() {
+  
+  var output = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("貼り付け")
+  var sheets = SpreadsheetApp.getActiveSpreadsheet().getSheets();
+  for (var i=0 ; i<sheets.length ; i++) {
+    sheet_name = sheets[i].getName()
+    output.getRange(i+2,20).setValue(sheet_name)
+  }  
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+function DeleteSheet() {
+  var response = Browser.msgBox('再度確認', 'バックアップしましたか？ここから、削除していいですか？', Browser.Buttons.YES_NO);
+  
+
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var data_sheet = ss.getSheetByName('貼り付け');
+  number_of_sheet = data_sheet.getRange("V1").getValue();
+
+  
+  for (var i = 1; i <= number_of_sheet; i++) {
+      if (response=='no') {
+      Browser.msgBox('キャンセルしました。');
+      break;
+      }
+    row = i+1
+    cell = "S" + row
+    
+    delete_sheet_name = data_sheet.getRange(cell).getValue();
+    ss.deleteSheet(ss.getSheetByName(delete_sheet_name));
+  }
+  Browser.msgBox('完了です');
+}
